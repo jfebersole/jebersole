@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beer Rankings</title>
+    <link rel="stylesheet" href="test.css">
+    <link rel="icon" type="image/png" href="icon3.svg">
+    <meta charset="UTF-8">
+</head>
+<body style="overflow: hidden;">
+    <div class="header">
+        <a href="map.html"> <!-- Replace "index.html" with your actual index page URL -->
+            <img src="icon3.svg" width="90px" />
+            <h1>Pizza + Beer Project</h1>
+        </a>
+        <a href="map.html"><h4>Map</h4></a>
+        <a href="brewery_rankings.html"><h4>Brewery Rankings</h4></a>
+        <a href="beer_rankings.html"><h4>Beer Rankings</h4></a>
+        <a href="pizzeria_rankings.html"><h4>Pizzeria Rankings</h4></a>
+        <a href="charts.html"><h4>Charts</h4></a>
+      </div>
+    <div id="beer-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" data-column="Image URL"></th>
+                    <th class="sortable" data-column="Beer Name">Beer</th>
+                    <th class="sortable" data-column="Brewery Name">Brewery</th>
+                    <th class="sortable" data-column="Style">Style</th>
+                    <th class="sortable" data-column="ABV" data-sort="number">ABV</th>
+                    <th class="sortable" data-column="My Rating" data-sort="number">My Rating</th>
+                    <th class="sortable" data-column="Global Rating" data-sort="number">Untappd Rating</th>
+                    <!-- <th class="sortable" data-column="Brewery Filepath">Brewery Filepath</th> -->
+                    
+                    <!-- <th class="sortable" data-column="diff" data-sort="number">diff</th> -->
+                </tr>
+            </thead>
+            <tbody id="beerTable">
+                <!-- Beer data will be inserted here dynamically using JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <script src="script_beer.js"></script>
+</body>
+</html>
