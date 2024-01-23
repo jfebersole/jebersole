@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brewery Rankings</title>
+    <link rel="stylesheet" href="test.css">
+    <link rel="icon" type="image/png" href="icon3.svg">
+    <meta charset="UTF-8">
+</head>
+<body style="overflow: hidden;">
+    <div class="header">
+        <a href="map.html"> <!-- Replace "index.html" with your actual index page URL -->
+            <img src="icon3.svg" width="90px" />
+            <h1>Pizza + Beer Project</h1>
+        </a>
+        <a href="map.html"><h4>Map</h4></a>
+        <a href="brewery_rankings.html"><h4>Brewery Rankings</h4></a>
+        <a href="beer_rankings.html"><h4>Beer Rankings</h4></a>
+        <a href="pizzeria_rankings.html"><h4>Pizzeria Rankings</h4></a>
+        <a href="charts.html"><h4>Charts</h4></a>
+    </div>
+    <div id="brewery-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" data-column="image_url"></th>
+                    <th class="sortable" data-column="name">Brewery</th>
+                    <th class="sortable" data-column="VORB" title="Value Over Replacement Brewery &trade;">VORB &trade;</th>
+                    <th class="sortable" data-column="Count">Beers Rated</th>
+                    <th class="sortable" data-column="Avg Beer Rating">Beer Avg</th>
+                    <th class="sortable" data-column="Top Beer Rating">Top Beer</th>
+                    <th class="sortable" data-column="Global Avg Rating" title="Average Rating by Untappd Users">Untappd Avg</th>
+                    <th class="sortable" data-column="Diff" title="Average Difference b/w My Rating and Untappd User Rating">Avg Diff</th>
+                    <th class="sortable" data-column="State">State</th>
+                </tr>
+            </thead>
+            <tbody id="breweryTable">
+                <!-- Brewery data will be inserted here dynamically using JavaScript -->
+            </tbody>
+        </table>
+    </div> 
+    <script src="script_brewery.js"></script>
+</body>
+</html>
