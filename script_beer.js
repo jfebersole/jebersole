@@ -1,4 +1,12 @@
-import beerObject from './beer_data_test.json';
+// import the fs module
+const fs = require('fs');
+
+// read the file and parse it into a JavaScript object
+let rawdata = fs.readFileSync('beer_data_test.json');
+let beerObject = JSON.parse(rawdata);
+
+// use the beerObject as you wish
+console.log(beerObject);
 
   var sortingDirections = {}; // Store sorting directions for each column
 
