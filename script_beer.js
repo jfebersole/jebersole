@@ -1,5 +1,5 @@
 // create JSON object with beer data
-var beerObject = 'beer_data.json';
+var beerObject = require("./beer_data.json");
 
   var sortingDirections = {}; // Store sorting directions for each column
 
