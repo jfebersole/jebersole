@@ -39,6 +39,9 @@
             </tbody>
         </table>
     </div>
-    <script type="module" src="script_beer.js"></script>
+    <script>
+      import('./script_beer.js')
+        .catch(err => console.error('Failed to import script_beer.js', err));
+    </script>
 </body>
 </html>
