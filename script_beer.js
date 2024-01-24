@@ -1,10 +1,7 @@
 const fs = require('fs');
 
-// Read the content of the JSON file
-const beerData = fs.readFileSync('./beer_data_test.json', 'utf8');
-
-// Parse the JSON data
-const beerObject = JSON.parse(beerData);
+// read the JSON file synchronously
+var beerObject = JSON.parse(fs.readFileSync('./beer_data_test.json', 'utf8'));
 
 
   var sortingDirections = {}; // Store sorting directions for each column
