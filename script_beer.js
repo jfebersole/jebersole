@@ -1,5 +1,10 @@
-// create JSON object with beer data
-var beerObject = require('./beer_data_test.json');
+const fs = require('fs');
+
+// Read the content of the JSON file
+const beerData = fs.readFileSync('./beer_data_test.json', 'utf8');
+
+// Parse the JSON data
+const beerObject = JSON.parse(beerData);
 
 
   var sortingDirections = {}; // Store sorting directions for each column
