@@ -16,18 +16,18 @@ async function fetchJsonData(url) {
 }
 
 
-// Function to build an HTML table from JSON data
+// Function to build an HTML table from GeoJSON data
 function buildTable(data) {
-    // Assuming data is an array of objects, and the keys represent column headers
-    const headers = Object.keys(data[0]);
+    // Assuming each feature has a "properties" object
+    const headers = Object.keys(data[0].properties);
 
     // Build the table header
     const headerRow = `<tr>${headers.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
 
     // Build the table body
-    const bodyRows = data.map(row => {
+    const bodyRows = data.map(feature => {
         const cells = headers.map(header => {
-            return `<td>${row[header]}</td>`;  // Use row[header] instead of undefined cellContent
+            return `<td>${feature.properties[header]}</td>`;
         });
         return `<tr>${cells.join('')}</tr>`;
     });
@@ -35,6 +35,7 @@ function buildTable(data) {
     // Combine header and body to create the HTML table
     return `<table>${headerRow}${bodyRows.join('')}</table>`;
 }
+
 
 // Fetch JSON data and display the table
 fetchJsonData(jsonUrl)
