@@ -1,5 +1,5 @@
 // URL to your JSON file on GitHub
-const jsonUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/pizzerias.geojson';
+const pizzaUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/pizzerias.geojson';
 
 var pizzaObject;
 var sortingDirections = {}; // Store sorting directions for each column
@@ -43,7 +43,7 @@ function buildTable(data) {
 
 
 // Fetch JSON data and display the table
-fetchJsonData(jsonUrl)
+fetchJsonData(pizzaUrl)
     .then(() => {
         // Build the table once the JSON data is fetched
         const tableHtml = buildTable(pizzaObject);
