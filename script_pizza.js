@@ -8,11 +8,13 @@ var sortingDirections = {}; // Store sorting directions for each column
 async function fetchJsonData(url) {
     try {
         const response = await fetch(url);
-        pizzaObject = await response.json();
+        const geoJsonObject = await response.json();
+        pizzaObject = geoJsonObject.features; // Extract features array
     } catch (error) {
         console.error('Error fetching JSON data:', error);
     }
 }
+
 
 // Function to build an HTML table from JSON data
 function buildTable(data) {
