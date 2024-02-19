@@ -47,7 +47,7 @@ fetchJsonData(jsonUrl)
         const tableHtml = buildTable(beerObject);
 
         // Display the table in the specified container
-        document.getElementById('table-container').innerHTML = tableHtml;
+        document.getElementById('beer-container').innerHTML = tableHtml;
 
         // Set up event listeners for sorting
         var sortableHeaders = document.querySelectorAll(".sortable");
