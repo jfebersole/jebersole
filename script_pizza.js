@@ -25,7 +25,7 @@ function buildTable(data) {
     // Build the table body
     const bodyRows = data.map(row => {
         const cells = headers.map(header => {
-            return `<td>${cellContent}</td>`;
+            return `<td>${row[header]}</td>`;  // Use row[header] instead of undefined cellContent
         });
         return `<tr>${cells.join('')}</tr>`;
     });
