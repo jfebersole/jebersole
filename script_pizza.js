@@ -18,15 +18,20 @@ async function fetchJsonData(url) {
 
 // Function to build an HTML table from GeoJSON data
 function buildTable(data) {
-    // Assuming each feature has a "properties" object
-    const headers = Object.keys(data[0].properties);
+    // Check if data is empty or undefined
+    if (!data || data.length === 0) {
+        return '<p>No data available</p>';
+    }
+
+    // Specify the columns you want to display
+    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'Notes', 'State'];
 
     // Build the table header
-    const headerRow = `<tr>${headers.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
+    const headerRow = `<tr>${desiredColumns.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
 
     // Build the table body
     const bodyRows = data.map(feature => {
-        const cells = headers.map(header => {
+        const cells = desiredColumns.map(header => {
             return `<td>${feature.properties[header]}</td>`;
         });
         return `<tr>${cells.join('')}</tr>`;
