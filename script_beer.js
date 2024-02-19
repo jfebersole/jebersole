@@ -14,25 +14,39 @@ async function fetchJsonData(url) {
     }
 }
 
-// Function to build an HTML table from JSON data
+// // Function to build an HTML table from JSON data
+// function buildTable(data) {
+//     // Assuming data is an array of objects, and the keys represent column headers
+//     const headers = Object.keys(data[0]);
+
+//     // Build the table header
+//     const headerRow = `<tr>${headers.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
+
+//     // Build the table body
+//     const bodyRows = data.map(row => {
+//         const cells = headers.map(header => {
+//             const cellContent = (header === 'Image URL') ? `<img src="${row[header]}" alt="Image">` : row[header];
+//             return `<td>${cellContent}</td>`;
+//         });
+//         return `<tr>${cells.join('')}</tr>`;
+//     });
+
+//     // Combine header and body to create the HTML table
+//     return `<table>${headerRow}${bodyRows.join('')}</table>`;
+// }
+
 function buildTable(data) {
-    // Assuming data is an array of objects, and the keys represent column headers
-    const headers = Object.keys(data[0]);
+    // Assuming data is an array of objects
+    const columnsToDisplay = ['Image URL', 'Beer Name', 'Brewery Name', 'Style', 'ABV', 'My Rating', 'Global Rating'];
+    
+    const headerRow = `<tr>${columnsToDisplay.map(column => `<th>${column}</th>`).join('')}</tr>`;
 
-    // Build the table header
-    const headerRow = `<tr>${headers.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
-
-    // Build the table body
     const bodyRows = data.map(row => {
-        const cells = headers.map(header => {
-            const cellContent = (header === 'Image URL') ? `<img src="${row[header]}" alt="Image">` : row[header];
-            return `<td>${cellContent}</td>`;
-        });
-        return `<tr>${cells.join('')}</tr>`;
+        const rowData = columnsToDisplay.map(column => `<td>${row[column]}</td>`).join('');
+        return `<tr>${rowData}</tr>`;
     });
 
-    // Combine header and body to create the HTML table
-    return `<table>${headerRow}${bodyRows.join('')}</table>`;
+    return `${headerRow}${bodyRows.join('')}`;
 }
 
 // Function to sort the table
