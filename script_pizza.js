@@ -8,7 +8,7 @@ var sortingDirections = {}; // Store sorting directions for each column
 async function fetchJsonData(url) {
     try {
         const response = await fetch(url);
-        beerObject = await response.json();
+        pizzaObject = await response.json();
     } catch (error) {
         console.error('Error fetching JSON data:', error);
     }
@@ -38,10 +38,10 @@ function buildTable(data) {
 fetchJsonData(jsonUrl)
     .then(() => {
         // Build the table once the JSON data is fetched
-        const tableHtml = buildTable(beerObject);
+        const tableHtml = buildTable(pizzaObject);
 
         // Display the table in the specified container
-        document.getElementById('beer-container').innerHTML = tableHtml;
+        document.getElementById('pizza-container').innerHTML = tableHtml;
 
         // Set up event listeners for sorting
         var sortableHeaders = document.querySelectorAll(".sortable");
