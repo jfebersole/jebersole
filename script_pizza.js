@@ -24,7 +24,7 @@ function buildTable(data) {
     }
 
     // Specify the columns you want to display
-    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'Notes', 'State'];
+    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'State', 'Notes'];
 
     // Build the table header
     const headerRow = `<tr>${desiredColumns.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
