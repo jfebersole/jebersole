@@ -35,10 +35,10 @@ function buildTable(data) {
 }
 
 
-// Function to sort the table
-function sortTable(column) {
-    // ... (Your existing sorting logic)
-}
+// // Function to sort the table
+// function sortTable(column) {
+//     // ... (Your existing sorting logic)
+// }
 
 // Fetch JSON data and display the table
 fetchJsonData(jsonUrl)
@@ -61,84 +61,84 @@ fetchJsonData(jsonUrl)
 
 // var sortingDirections = {}; // Store sorting directions for each column
 
-// function sortTable(column) {
-//     var table, rows, switching, i, x, y, shouldSwitch;
-//     table = document.getElementById("breweryTable");
-//     switching = true;
+function sortTable(column) {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("breweryTable");
+    switching = true;
 
-//     // Determine the sorting direction for this column
-//     if (!sortingDirections[column]) {
-//         // if column is brewry rating, sort descending
-//         if (column === 2) {
-//             sortingDirections[column] = "desc";
-//         } else {
-//             sortingDirections[column] = "asc";
-//         } 
-//     } else {
-//         sortingDirections[column] = sortingDirections[column] === "asc" ? "desc" : "asc";
-//     }
+    // Determine the sorting direction for this column
+    if (!sortingDirections[column]) {
+        // if column is brewry rating, sort descending
+        if (column === 2) {
+            sortingDirections[column] = "desc";
+        } else {
+            sortingDirections[column] = "asc";
+        } 
+    } else {
+        sortingDirections[column] = sortingDirections[column] === "asc" ? "desc" : "asc";
+    }
 
-//     while (switching) {
-//         switching = false;
-//         rows = table.rows;
+    while (switching) {
+        switching = false;
+        rows = table.rows;
 
-//         for (i = 0; i < rows.length - 1; i++) {
-//             shouldSwitch = false;
+        for (i = 0; i < rows.length - 1; i++) {
+            shouldSwitch = false;
 
-//             x = rows[i].getElementsByTagName("td")[column];
-//             y = rows[i + 1].getElementsByTagName("td")[column];
+            x = rows[i].getElementsByTagName("td")[column];
+            y = rows[i + 1].getElementsByTagName("td")[column];
 
-//             var shouldSortAsNumber = x.dataset.sort === "number";
+            var shouldSortAsNumber = x.dataset.sort === "number";
 
-//             var xValue = shouldSortAsNumber ? parseFloat(x.textContent) : x.textContent.toLowerCase();
-//             var yValue = shouldSortAsNumber ? parseFloat(y.textContent) : y.textContent.toLowerCase();
+            var xValue = shouldSortAsNumber ? parseFloat(x.textContent) : x.textContent.toLowerCase();
+            var yValue = shouldSortAsNumber ? parseFloat(y.textContent) : y.textContent.toLowerCase();
 
-//             // Check if the rows should be switched
-//             if (
-//                 (sortingDirections[column] === "asc" && xValue > yValue) ||
-//                 (sortingDirections[column] === "desc" && xValue < yValue)
-//             ) {
-//                 shouldSwitch = true;
-//                 break;
-//             }
+            // Check if the rows should be switched
+            if (
+                (sortingDirections[column] === "asc" && xValue > yValue) ||
+                (sortingDirections[column] === "desc" && xValue < yValue)
+            ) {
+                shouldSwitch = true;
+                break;
+            }
             
-//             // If Ranking values are equal, sort by brewery (ascending)
-//             if (xValue === yValue && column === 2) {
-//                 var breweryX = rows[i].getElementsByTagName("td")[0].textContent;
-//                 var breweryY = rows[i + 1].getElementsByTagName("td")[0].textContent;
+            // If Ranking values are equal, sort by brewery (ascending)
+            if (xValue === yValue && column === 2) {
+                var breweryX = rows[i].getElementsByTagName("td")[0].textContent;
+                var breweryY = rows[i + 1].getElementsByTagName("td")[0].textContent;
 
-//                 if (breweryX > breweryY) {
-//                     shouldSwitch = true;
-//                     break;
-//                 }
-//             }
-//         }
+                if (breweryX > breweryY) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
 
-//         if (shouldSwitch) {
-//             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-//             switching = true;
-//         }
-//     }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
 
-//     // Reset sorting indicators
-//     var headers = document.querySelectorAll(".sortable");
-//     for (var i = 0; i < headers.length; i++) {
-//         headers[i].classList.remove("asc", "desc");
-//     }
+    // Reset sorting indicators
+    var headers = document.querySelectorAll(".sortable");
+    for (var i = 0; i < headers.length; i++) {
+        headers[i].classList.remove("asc", "desc");
+    }
 
-//     // Set the sorting indicator on the clicked column
-//     var header = headers[column];
-//     header.classList.toggle(sortingDirections[column]);
-// }
+    // Set the sorting indicator on the clicked column
+    var header = headers[column];
+    header.classList.toggle(sortingDirections[column]);
+}
 
-// var sortableHeaders = document.querySelectorAll(".sortable");
+var sortableHeaders = document.querySelectorAll(".sortable");
 
-// for (var i = 0; i < sortableHeaders.length; i++) {
-//     sortableHeaders[i].addEventListener("click", function () {
-//         var column = this.cellIndex;
-//         sortTable(column);
-//     });
-// }
+for (var i = 0; i < sortableHeaders.length; i++) {
+    sortableHeaders[i].addEventListener("click", function () {
+        var column = this.cellIndex;
+        sortTable(column);
+    });
+}
 
 
 
