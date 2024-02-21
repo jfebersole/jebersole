@@ -1,5 +1,5 @@
 // URL to your JSON file on GitHub
-const jsonUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data3.json';
+const jsonUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.json';
 
 var sortingDirections = {}; // Store sorting directions for each column
 var beerObject;
