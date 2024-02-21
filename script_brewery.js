@@ -59,7 +59,7 @@ fetchJsonData(jsonUrl)
         }
     });
 
-// var sortingDirections = {}; // Store sorting directions for each column
+var sortingDirections = {}; // Store sorting directions for each column
 
 function sortTable(column) {
     var table, rows, switching, i, x, y, shouldSwitch;
