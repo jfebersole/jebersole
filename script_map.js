@@ -582,7 +582,7 @@ fetch(pizzaUrl)
         fillOpacity: 0,
       },
       // set the max zoom level to prevent clusters from becoming markers
-      maxClusterRadius: 100
+      maxClusterRadius: 10
     });
 
     // Add markers to the cluster group
