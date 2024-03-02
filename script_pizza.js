@@ -62,7 +62,7 @@ function buildTable(data) {
                 const imagePath = feature.properties[header];
                 if (imagePath) {
                     // Display image in the "Image" column with a maximum height of 100 pixels
-                    return `<td><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
+                    return `<td class="clickable-image"><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
                 } else {
                     // Display an empty cell if no image path exists
                     return '<td></td>';
@@ -75,7 +75,20 @@ function buildTable(data) {
     });
 
     // Combine header and body to create the HTML table
-    return `<table>${headerRow}${bodyRows.join('')}</table>`;
+    const tableHtml = `<table>${headerRow}${bodyRows.join('')}</table>`;
+
+    // Add event listeners for image click
+    setTimeout(() => {
+        const clickableImages = document.querySelectorAll('.clickable-image img');
+        clickableImages.forEach(image => {
+            image.addEventListener('click', function () {
+                // Toggle a CSS class to make the image bigger
+                this.classList.toggle('bigger-image');
+            });
+        });
+    }, 0);
+
+    return tableHtml;
 }
 
 
