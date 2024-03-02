@@ -785,6 +785,10 @@ breweryCheckbox.addEventListener('change', function () {
 var pizzeriaCheckbox = document.getElementById('pizzeria-checkbox');
 
 pizzeriaCheckbox.addEventListener('change', function () {
+  console.log("Checkbox changed");
+  console.log("Checked:", pizzeriaCheckbox.checked);
+  console.log("Map has markerClusterPizza:", map.hasLayer(markerClusterPizza));
+
   if (pizzeriaCheckbox.checked && !map.hasLayer(markerClusterPizza)) {
     console.log("Adding markerClusterPizza to the map");
     map.addLayer(markerClusterPizza);
@@ -796,6 +800,7 @@ pizzeriaCheckbox.addEventListener('change', function () {
   // Update the legend to reflect the current state of the pizzeria layer
   updateLegend();
 });
+
 
 
 
