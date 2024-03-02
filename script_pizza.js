@@ -49,7 +49,7 @@ function buildTable(data) {
     }
 
     // Specify the columns you want to display
-    const desiredColumns = ['Image', 'Pizzeria', 'Style', 'Rating', 'State', 'Notes'];
+    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'State', 'Notes', 'Image'];
 
     // Build the table header
     const headerRow = `<tr>${desiredColumns.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
