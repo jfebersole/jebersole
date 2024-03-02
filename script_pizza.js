@@ -2,7 +2,7 @@
 const pizzaUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/pizzerias.geojson';
 
 var pizzaObject;
-var sortingDirections = {}; // Store sorting directions for each column
+// var sortingDirections = {}; // Store sorting directions for each column
 
 // Function to fetch JSON data
 async function fetchJsonData(url) {
@@ -102,13 +102,13 @@ fetchJsonData(pizzaUrl)
         // Display the table in the specified container
         document.getElementById('pizza-container').innerHTML = tableHtml;
 
-        // Set up event listeners for sorting
-        var sortableHeaders = document.querySelectorAll(".sortable");
-        for (var i = 0; i < sortableHeaders.length; i++) {
-            sortableHeaders[i].addEventListener("click", function () {
-                var column = this.cellIndex;
-                sortTable(column);
-            });
-        }
+        // // Set up event listeners for sorting
+        // var sortableHeaders = document.querySelectorAll(".sortable");
+        // for (var i = 0; i < sortableHeaders.length; i++) {
+        //     sortableHeaders[i].addEventListener("click", function () {
+        //         var column = this.cellIndex;
+        //         sortTable(column);
+        //     });
+        // }
     });
 
