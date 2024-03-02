@@ -533,6 +533,8 @@ var breweryObject = {
 const pizzaUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/pizzerias.geojson';
 
 var pizzeriaObject;
+var pizzeriaLayer; // Declare pizzeriaLayer outside the fetch block
+var markerClusterPizza; // Declare markerClusterPizza outside the fetch block
 
 // // Function to fetch JSON data
 // async function fetchJsonData(url) {
