@@ -58,8 +58,8 @@ function buildTable(data) {
     const bodyRows = data.map(feature => {
         const cells = desiredColumns.map(header => {
             if (header === 'Image') {
-                // Display image in the "Image" column
-                return `<td><img src="${feature.properties[header]}" alt="${feature.properties['Pizzeria']} Image"></td>`;
+                // Display image in the "Image" column with a maximum height of 100 pixels
+                return `<td><img src="${feature.properties[header]}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
             } else {
                 return `<td>${feature.properties[header]}</td>`;
             }
