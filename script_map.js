@@ -793,16 +793,31 @@ const pizzaUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/pi
 
 var pizzeriaObject;
 
-// Function to fetch JSON data
-async function fetchJsonData(url) {
-    try {
-        const response = await fetch(url);
-        const geoJsonObject = await response.json();
-        pizzeriaObject = geoJsonObject.features; // Extract features array
-    } catch (error) {
-        console.error('Error fetching JSON data:', error);
-    }
-}
+// // Function to fetch JSON data
+// async function fetchJsonData(url) {
+//     try {
+//         const response = await fetch(url);
+//         const geoJsonObject = await response.json();
+//         pizzeriaObject = geoJsonObject.features; // Extract features array
+//     } catch (error) {
+//         console.error('Error fetching JSON data:', error);
+//     }
+// }
+
+// Fetch GeoJSON data from the URL
+fetch(pizzaUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Now 'data' contains the GeoJSON features
+    var pizzeriaObject = data;
+
+    // Your existing code that uses the GeoJSON object goes here
+    // For example, you can access features with pizzeriaObject.features
+    console.log(pizzeriaObject);
+  })
+  .catch(error => {
+    console.error('Error fetching GeoJSON data:', error);
+  });
 
 var customIconBeer = L.icon({
   iconUrl: src="icon_beer.png",
