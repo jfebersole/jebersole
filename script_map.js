@@ -1,6 +1,3 @@
-// Create a map object
-// var map = L.map('map');
-
 // Initialize the map without zoom control
 var map = L.map('map', {
   zoomControl: false, // Disable the default zoom control
@@ -794,12 +791,14 @@ pizzeriaCheckbox.addEventListener('change', function () {
     markerClusterPizza.addTo(map);
   } else {
     console.log("Removing markerClusterPizza from the map");
-    markerClusterPizza.remove();
+    // Use map.removeLayer instead of markerClusterPizza.remove
+    map.removeLayer(markerClusterPizza);
   }
 
   // Update the legend to reflect the current state of the pizzeria layer
   updateLegend();
 });
+
 
 
 // Function to update the legend
