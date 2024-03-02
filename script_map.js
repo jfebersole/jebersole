@@ -582,7 +582,7 @@ fetch(pizzaUrl)
         fillOpacity: 0,
       },
       // set the max zoom level to prevent clusters from becoming markers
-      maxClusterRadius: 10
+      maxClusterRadius: 15
     });
 
     // Add markers to the cluster group
@@ -650,7 +650,7 @@ var markerClusterBrewery = L.markerClusterGroup({
     fillOpacity: 0,
   },
   // set the max zoom level to prevent clusters from becoming markers
-  maxClusterRadius: 10
+  maxClusterRadius: 15
 });
 
 // Add markers to the cluster group
