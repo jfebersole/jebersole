@@ -106,7 +106,7 @@ fetchJsonData(pizzaUrl)
         const tableHtml = buildTable(pizzaObject);
 
         // Display the table in the specified container
-        document.getElementById('pizza-container').innerHTML = tableHtml;
+        // document.getElementById('pizza-container').innerHTML = tableHtml;
 
         // // Set up event listeners for sorting
         // var sortableHeaders = document.querySelectorAll(".sortable");
