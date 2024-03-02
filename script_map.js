@@ -805,12 +805,13 @@ legend.onAdd = function (map) {
   div.innerHTML += '<h2>Layers</h2>';
   
   // The checkboxes will be created here, but event listeners will be added outside the onAdd function
-  div.innerHTML += '<label class="container"><p>Breweries</p><input type="checkbox" id="brewery-checkbox" checked><span class="checkmark"></span></label>';
-  div.innerHTML += '<label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox" checked><span class="checkmark"></span></label>';
+  div.innerHTML += '<div id="brewery-legend"><label class="container"><p>Breweries</p><input type="checkbox" id="brewery-checkbox" checked><span class="checkmark"></span></label></div>';
+  div.innerHTML += '<div id="pizzeria-legend"><label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox" checked><span class="checkmark"></span></label></div>';
   return div;
 };
 
 legend.addTo(map);
+
 
 // Add event listeners to toggle layers when checkboxes change
 var breweryCheckbox = document.getElementById('brewery-checkbox');
@@ -832,7 +833,20 @@ pizzeriaCheckbox.addEventListener('change', function () {
   } else {
     map.removeLayer(markerClusterPizza);
   }
+
+  // Update the legend to reflect the current state of the pizzeria layer
+  updateLegend();
 });
 
+// Function to update the legend
+function updateLegend() {
+  var pizzeriaLegend = document.getElementById('pizzeria-legend');
+
+  if (map.hasLayer(markerClusterPizza)) {
+    pizzeriaLegend.innerHTML = '<label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox" checked><span class="checkmark"></span></label>';
+  } else {
+    pizzeriaLegend.innerHTML = '<label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox"><span class="checkmark"></span></label>';
+  }
+}
 
 
