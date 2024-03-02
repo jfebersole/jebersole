@@ -786,9 +786,13 @@ var pizzeriaCheckbox = document.getElementById('pizzeria-checkbox');
 
 pizzeriaCheckbox.addEventListener('change', function () {
   if (pizzeriaCheckbox.checked) {
-    markerClusterPizza.addTo(map); // Use addTo to add the layer to the map
+    if (!map.hasLayer(markerClusterPizza)) {
+      map.addLayer(markerClusterPizza);
+    }
   } else {
-    map.removeLayer(markerClusterPizza);
+    if (map.hasLayer(markerClusterPizza)) {
+      map.removeLayer(markerClusterPizza);
+    }
   }
 
   // Update the legend to reflect the current state of the pizzeria layer
