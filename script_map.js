@@ -791,19 +791,15 @@ pizzeriaCheckbox.addEventListener('change', function () {
 
   if (pizzeriaCheckbox.checked) {
     console.log("Adding markerClusterPizza to the map");
-    map.addLayer(markerClusterPizza);
+    markerClusterPizza.addTo(map);
   } else {
     console.log("Removing markerClusterPizza from the map");
-    map.removeLayer(markerClusterPizza);
+    markerClusterPizza.remove();
   }
 
   // Update the legend to reflect the current state of the pizzeria layer
   updateLegend();
 });
-
-
-
-
 
 
 // Function to update the legend
