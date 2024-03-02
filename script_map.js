@@ -822,7 +822,7 @@ fetch(pizzaUrl)
         var style = feature.properties.Style;
         var notes = feature.properties.Notes;
 
-        var imageUrl = layer.feature.properties.Image;
+        var imageUrl = feature.properties.Image;
 
         // Set the popup content
         var popupContent = "<h2>" + pizzeria + "</h2> <p>" + "Rating: " + rating + "</p>" +
