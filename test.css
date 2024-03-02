@@ -435,7 +435,13 @@ button:hover {
   margin-left: 10px;
 }
 
-.bigger-image {
-    max-height: 400px; /* Adjust the desired larger height */
-/*     transition: max-height 0.3s ease; /* Optional: Add a smooth transition effect */ */
+.clickable-image img {
+    max-width: 100px;
+    height: auto;
 }
+
+.clickable-image img.bigger-image {
+    max-width: 400px; /* Adjust the desired larger width */
+    transition: max-width 0.3s ease; /* Optional: Add a smooth transition effect */
+}
+
