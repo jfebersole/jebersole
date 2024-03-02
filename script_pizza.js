@@ -79,7 +79,7 @@ function buildTable(data) {
     const tableHtml = `<table>${headerRow}${bodyRows.join('')}</table>`;
 
     // Insert the table into the DOM
-    document.getElementById('table-container').innerHTML = tableHtml;
+    document.getElementById('pizza-container').innerHTML = tableHtml;
 
     // Set up event listeners for image click
     setupImageClickListeners();
