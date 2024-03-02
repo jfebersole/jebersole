@@ -16,6 +16,31 @@ async function fetchJsonData(url) {
 }
 
 
+// // Function to build an HTML table from GeoJSON data
+// function buildTable(data) {
+//     // Check if data is empty or undefined
+//     if (!data || data.length === 0) {
+//         return '<p>No data available</p>';
+//     }
+
+//     // Specify the columns you want to display
+//     const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'State', 'Notes'];
+
+//     // Build the table header
+//     const headerRow = `<tr>${desiredColumns.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
+
+//     // Build the table body
+//     const bodyRows = data.map(feature => {
+//         const cells = desiredColumns.map(header => {
+//             return `<td>${feature.properties[header]}</td>`;
+//         });
+//         return `<tr>${cells.join('')}</tr>`;
+//     });
+
+//     // Combine header and body to create the HTML table
+//     return `<table>${headerRow}${bodyRows.join('')}</table>`;
+// }
+
 // Function to build an HTML table from GeoJSON data
 function buildTable(data) {
     // Check if data is empty or undefined
@@ -24,7 +49,7 @@ function buildTable(data) {
     }
 
     // Specify the columns you want to display
-    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'State', 'Notes'];
+    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'State', 'Notes', 'Image'];
 
     // Build the table header
     const headerRow = `<tr>${desiredColumns.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
@@ -32,7 +57,12 @@ function buildTable(data) {
     // Build the table body
     const bodyRows = data.map(feature => {
         const cells = desiredColumns.map(header => {
-            return `<td>${feature.properties[header]}</td>`;
+            if (header === 'Image') {
+                // Display image in the "Image" column
+                return `<td><img src="${feature.properties[header]}" alt="${feature.properties['Pizzeria']} Image"></td>`;
+            } else {
+                return `<td>${feature.properties[header]}</td>`;
+            }
         });
         return `<tr>${cells.join('')}</tr>`;
     });
