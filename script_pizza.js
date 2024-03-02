@@ -63,7 +63,7 @@ function buildTable(data) {
                 if (imagePath) {
                     // Display image in the "Image" column with a maximum height of 100 pixels
                     // return `<td class="clickable-image"><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
-                    return `<td class="clickable-image"><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-width: 100px; height: auto;"></td>`;
+                    return `<td class="clickable-image"><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image"></td>`;
                 } else {
                     // Display an empty cell if no image path exists
                     return '<td></td>';
