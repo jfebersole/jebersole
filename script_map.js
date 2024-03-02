@@ -778,29 +778,6 @@ breweryCheckbox.addEventListener('change', function () {
   }
 });
 
-// Add event listeners to toggle layers when checkboxes change
-var pizzeriaCheckbox = document.getElementById('pizzeria-checkbox');
-
-pizzeriaCheckbox.addEventListener('change', function () {
-  console.log("Checkbox changed");
-  console.log("Checked:", pizzeriaCheckbox.checked);
-  console.log("Map has markerClusterPizza:", map.hasLayer(markerClusterPizza));
-
-  if (pizzeriaCheckbox.checked) {
-    console.log("Adding markerClusterPizza to the map");
-    markerClusterPizza.addTo(map);
-  } else {
-    console.log("Removing markerClusterPizza from the map");
-    // Use map.removeLayer instead of markerClusterPizza.remove
-    map.removeLayer(markerClusterPizza);
-  }
-
-  // Update the legend to reflect the current state of the pizzeria layer
-  updateLegend();
-});
-
-
-
 // Function to update the legend
 function updateLegend() {
   var pizzeriaLegend = document.getElementById('pizzeria-legend');
@@ -810,4 +787,23 @@ function updateLegend() {
   } else {
     pizzeriaLegend.innerHTML = '<label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox"><span class="checkmark"></span></label>';
   }
+
+  // Add a new event listener to the updated checkbox
+  var pizzeriaCheckbox = document.getElementById('pizzeria-checkbox');
+
+  pizzeriaCheckbox.addEventListener('change', function () {
+    console.log("Checkbox changed");
+    console.log("Checked:", pizzeriaCheckbox.checked);
+    console.log("Map has markerClusterPizza:", map.hasLayer(markerClusterPizza));
+
+    if (pizzeriaCheckbox.checked) {
+      console.log("Adding markerClusterPizza to the map");
+      markerClusterPizza.addTo(map);
+    } else {
+      console.log("Removing markerClusterPizza from the map");
+      // Use map.removeLayer instead of markerClusterPizza.remove
+      map.removeLayer(markerClusterPizza);
+    }
+  });
 }
+
