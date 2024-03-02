@@ -25,7 +25,7 @@ function buildTable(data) {
     // Build the table body
     const bodyRows = data.map(row => {
         const cells = headers.map(header => {
-            const cellContent = (header === 'Label') ? `<img src="${row[header]}" alt="Image">` : row[header];
+            const cellContent = (header === 'Label') ? `<img src="${row[header]}" alt="Image" style="max-height: 100px>` : row[header];
             return `<td>${cellContent}</td>`;
         });
         return `<tr>${cells.join('')}</tr>`;
