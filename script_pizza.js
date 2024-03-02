@@ -78,16 +78,11 @@ function buildTable(data) {
     // Combine header and body to create the HTML table
     const tableHtml = `<table>${headerRow}${bodyRows.join('')}</table>`;
 
-    // Set up event listeners for image click
-    const clickableImages = document.querySelectorAll('.clickable-image img');
-    clickableImages.forEach(image => {
-        console.log('Adding event listener to image:', image);
-        image.addEventListener('click', function () {
-            // Toggle a CSS class to make the image bigger
-            this.classList.toggle('bigger-image');
-        });
-    });
+    // Insert the table into the DOM
+    document.getElementById('table-container').innerHTML = tableHtml;
 
+    // Set up event listeners for image click
+    setupImageClickListeners();
 
     return tableHtml;
 }
@@ -101,6 +96,15 @@ fetchJsonData(pizzaUrl)
 
         // Display the table in the specified container
         document.getElementById('pizza-container').innerHTML = tableHtml;
+
+        const clickableImages = document.querySelectorAll('.clickable-image img');
+        clickableImages.forEach(image => {
+            console.log('Adding event listener to image:', image);
+            image.addEventListener('click', function () {
+                // Toggle a CSS class to make the image bigger
+                this.classList.toggle('bigger-image');
+            });
+        });
 
         // // Set up event listeners for sorting
         // var sortableHeaders = document.querySelectorAll(".sortable");
