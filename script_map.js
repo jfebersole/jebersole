@@ -814,7 +814,24 @@ fetch(pizzaUrl)
     // Create a geojson pizzeria layer using markerOptions
     var pizzeriaLayer = L.geoJSON(pizzeriaObject, {
       pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, markerOptionsPizza);
+        var marker = L.marker(latlng, markerOptionsPizza);
+
+        // Get the properties from the GeoJSON feature
+        var pizzeria = feature.properties.Pizzeria;
+        var rating = feature.properties.Rating;
+        var style = feature.properties.Style;
+        var notes = feature.properties.Notes;
+
+        // Set the popup content
+        var popupContent = "<h2>" + pizzeria + "</h2> <p>" + "Rating: " + rating + "</p>" +
+          "<p>" + "Style: " + style + "</p>" + "<p>" + "Notes: " + notes + "</p>";
+
+        // Add an event listener to update the additional info container
+        marker.on('click', function () {
+          updateAdditionalInfo(popupContent);
+        });
+
+        return marker;
       }
     });
 
