@@ -809,11 +809,63 @@ fetch(pizzaUrl)
   .then(response => response.json())
   .then(data => {
     // Now 'data' contains the GeoJSON features
-    var pizzeriaObject = data;
+    pizzeriaObject = data;
 
-    // Your existing code that uses the GeoJSON object goes here
-    // For example, you can access features with pizzeriaObject.features
-    console.log(pizzeriaObject);
+    // Create a geojson pizzeria layer using markerOptions
+    var pizzeriaLayer = L.geoJSON(pizzeriaObject, {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, markerOptionsPizza);
+      }
+    });
+
+    // Create a marker cluster group with the same icon configuration
+    var markerClusterPizza = L.markerClusterGroup({
+      iconCreateFunction: function (cluster) {
+        return customIconPizza;
+      },
+      polygonOptions: {
+        fillColor: 'transparent',
+        color: 'transparent',
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0,
+      },
+      // set the max zoom level to prevent clusters from becoming markers
+      maxClusterRadius: 50
+    });
+
+    // Add markers to the cluster group
+    pizzeriaLayer.eachLayer(function (marker) {
+      markerClusterPizza.addLayer(marker);
+    });
+
+    // Add the marker cluster group to the map
+    map.addLayer(markerClusterPizza);
+
+    // Loop through each feature in the pizzeria layer
+    pizzeriaLayer.eachLayer(function (layer) {
+      // Get the following properties from each feature: Pizzeria, Rating, Style, Notes
+      var pizzeria = layer.feature.properties.Pizzeria;
+      var rating = layer.feature.properties.Rating;
+      var style = layer.feature.properties.Style;
+      var notes = layer.feature.properties.Notes;
+
+      // Set the popup content
+      var popupContent = "<h2>" + pizzeria + "</h2> <p>" + "Rating: " + rating + "</p>" +
+        "<p>" + "Style: " + style + "</p>" + "<p>" + "Notes: " + notes + "</p>";
+
+      // Add an event listener to update the additional info container
+      layer.on('popupopen', function () {
+        updateAdditionalInfo(popupContent);
+      });
+
+      // Add an event listener to clear the additional info container when the popup is closed
+      layer.on('popupclose', function () {
+        updateAdditionalInfo('');
+      });
+    });
+
+    // ... (rest of your code)
   })
   .catch(error => {
     console.error('Error fetching GeoJSON data:', error);
@@ -982,75 +1034,75 @@ var markerOptionsPizza = {
   icon: customIconPizza,  // Use the custom icon instead of circleMarker
 };
 
-// Create a geojson pizzeria layer using markerOptions
-var pizzeriaLayer = L.geoJSON(pizzeriaObject, {
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, markerOptionsPizza);
-  }
-});
+// // Create a geojson pizzeria layer using markerOptions
+// var pizzeriaLayer = L.geoJSON(pizzeriaObject, {
+//   pointToLayer: function (feature, latlng) {
+//     return L.marker(latlng, markerOptionsPizza);
+//   }
+// });
 
-// Create a marker cluster group with the same icon configuration
-var markerClusterPizza = L.markerClusterGroup({
-  iconCreateFunction: function (cluster) {
-    return customIconPizza;
-  },
-  polygonOptions: {
-    fillColor: 'transparent',
-    color: 'transparent',
-    weight: 0,
-    opacity: 0,
-    fillOpacity: 0,
-  },
-  // set the max zoom level to prevent clusters from becoming markers
-  maxClusterRadius: 50
-});
+// // Create a marker cluster group with the same icon configuration
+// var markerClusterPizza = L.markerClusterGroup({
+//   iconCreateFunction: function (cluster) {
+//     return customIconPizza;
+//   },
+//   polygonOptions: {
+//     fillColor: 'transparent',
+//     color: 'transparent',
+//     weight: 0,
+//     opacity: 0,
+//     fillOpacity: 0,
+//   },
+//   // set the max zoom level to prevent clusters from becoming markers
+//   maxClusterRadius: 50
+// });
 
-// Add markers to the cluster group
-pizzeriaLayer.eachLayer(function (marker) {
-  markerClusterPizza.addLayer(marker);
-});
+// // Add markers to the cluster group
+// pizzeriaLayer.eachLayer(function (marker) {
+//   markerClusterPizza.addLayer(marker);
+// });
 
-// Add the marker cluster group to the map
-map.addLayer(markerClusterPizza);
+// // Add the marker cluster group to the map
+// map.addLayer(markerClusterPizza);
 
 
-// Loop through each feature in the pizzeria layer
-pizzeriaLayer.eachLayer(function (layer) {
-  // Get the following properties from each feature: Pizzeria, Rating
-  var pizzeria = layer.feature.properties.Pizzeria;
+// // Loop through each feature in the pizzeria layer
+// pizzeriaLayer.eachLayer(function (layer) {
+//   // Get the following properties from each feature: Pizzeria, Rating
+//   var pizzeria = layer.feature.properties.Pizzeria;
 
-  // Set the popup content
-  var popupContent = "<h3>" + pizzeria + "</h3>";
+//   // Set the popup content
+//   var popupContent = "<h3>" + pizzeria + "</h3>";
 
-  // Use a className option to assign a custom class to the popup
-  var popupOptions = { className: "mypopup" };
+//   // Use a className option to assign a custom class to the popup
+//   var popupOptions = { className: "mypopup" };
 
-  // Bind the popup to the layer with the options
-  layer.bindPopup(popupContent, popupOptions);
-});
+//   // Bind the popup to the layer with the options
+//   layer.bindPopup(popupContent, popupOptions);
+// });
 
-// Loop through each feature in the pizzeria layer
-pizzeriaLayer.eachLayer(function (layer) {
-  // Get the following properties from each feature: Pizzeria, Rating, Style, Notes
-  var pizzeria = layer.feature.properties.Pizzeria;
-  var rating = layer.feature.properties.Rating;
-  var style = layer.feature.properties.Style;
-  var notes = layer.feature.properties.Notes;
+// // Loop through each feature in the pizzeria layer
+// pizzeriaLayer.eachLayer(function (layer) {
+//   // Get the following properties from each feature: Pizzeria, Rating, Style, Notes
+//   var pizzeria = layer.feature.properties.Pizzeria;
+//   var rating = layer.feature.properties.Rating;
+//   var style = layer.feature.properties.Style;
+//   var notes = layer.feature.properties.Notes;
 
-  // Set the popup content
-  var popupContent = "<h2>" + pizzeria + "</h2> <p>" + "Rating: " + rating + "</p>" +
-  "<p>" + "Style: " + style + "</p>" + "<p>" + "Notes: " + notes + "</p>";
+//   // Set the popup content
+//   var popupContent = "<h2>" + pizzeria + "</h2> <p>" + "Rating: " + rating + "</p>" +
+//   "<p>" + "Style: " + style + "</p>" + "<p>" + "Notes: " + notes + "</p>";
 
-  // Add an event listener to update the additional info container
-  layer.on('popupopen', function () {
-    updateAdditionalInfo(popupContent);
-  });
+//   // Add an event listener to update the additional info container
+//   layer.on('popupopen', function () {
+//     updateAdditionalInfo(popupContent);
+//   });
 
-  // Add an event listener to clear the additional info container when the popup is closed
-  layer.on('popupclose', function () {
-    updateAdditionalInfo('');
-  });
-});
+//   // Add an event listener to clear the additional info container when the popup is closed
+//   layer.on('popupclose', function () {
+//     updateAdditionalInfo('');
+//   });
+// });
 
 
 
