@@ -62,7 +62,8 @@ function buildTable(data) {
                 const imagePath = feature.properties[header];
                 if (imagePath) {
                     // Display image in the "Image" column with a maximum height of 100 pixels
-                    return `<td class="clickable-image"><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
+                    // return `<td class="clickable-image"><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
+                    return `<td><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" class="clickable-image" style="max-height: 100px;"></td>`;
                 } else {
                     // Display an empty cell if no image path exists
                     return '<td></td>';
