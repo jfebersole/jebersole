@@ -87,6 +87,17 @@ function buildTable(data) {
     return tableHtml;
 }
 
+// Function to set up event listeners for image click
+function setupImageClickListeners() {
+    const clickableImages = document.querySelectorAll('.clickable-image img');
+    clickableImages.forEach(image => {
+        console.log('Adding event listener to image:', image);
+        image.addEventListener('click', function () {
+            // Toggle a CSS class to make the image bigger
+            this.classList.toggle('bigger-image');
+        });
+    });
+}
 
 // Fetch JSON data and display the table
 fetchJsonData(pizzaUrl)
@@ -96,15 +107,6 @@ fetchJsonData(pizzaUrl)
 
         // Display the table in the specified container
         document.getElementById('pizza-container').innerHTML = tableHtml;
-
-        const clickableImages = document.querySelectorAll('.clickable-image img');
-        clickableImages.forEach(image => {
-            console.log('Adding event listener to image:', image);
-            image.addEventListener('click', function () {
-                // Toggle a CSS class to make the image bigger
-                this.classList.toggle('bigger-image');
-            });
-        });
 
         // // Set up event listeners for sorting
         // var sortableHeaders = document.querySelectorAll(".sortable");
