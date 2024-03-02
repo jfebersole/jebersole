@@ -785,15 +785,18 @@ breweryCheckbox.addEventListener('change', function () {
 var pizzeriaCheckbox = document.getElementById('pizzeria-checkbox');
 
 pizzeriaCheckbox.addEventListener('change', function () {
-  if (map.hasLayer(markerClusterPizza)) {
-    map.removeLayer(markerClusterPizza);
-  } else {
+  if (!map.hasLayer(markerClusterPizza)) {
+    console.log("Adding markerClusterPizza to the map");
     map.addLayer(markerClusterPizza);
+  } else {
+    console.log("Removing markerClusterPizza from the map");
+    map.removeLayer(markerClusterPizza);
   }
 
   // Update the legend to reflect the current state of the pizzeria layer
   updateLegend();
 });
+
 
 
 // Function to update the legend
