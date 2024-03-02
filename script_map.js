@@ -536,17 +536,6 @@ var pizzeriaObject;
 var pizzeriaLayer; // Declare pizzeriaLayer outside the fetch block
 var markerClusterPizza; // Declare markerClusterPizza outside the fetch block
 
-// // Function to fetch JSON data
-// async function fetchJsonData(url) {
-//     try {
-//         const response = await fetch(url);
-//         const geoJsonObject = await response.json();
-//         pizzeriaObject = geoJsonObject.features; // Extract features array
-//     } catch (error) {
-//         console.error('Error fetching JSON data:', error);
-//     }
-// }
-
 // Fetch GeoJSON data from the URL
 fetch(pizzaUrl)
   .then(response => response.json())
@@ -555,7 +544,7 @@ fetch(pizzaUrl)
     pizzeriaObject = data;
 
     // Create a geojson pizzeria layer using markerOptions
-    var pizzeriaLayer = L.geoJSON(pizzeriaObject, {
+    pizzeriaLayer = L.geoJSON(pizzeriaObject, {
       pointToLayer: function (feature, latlng) {
         var marker = L.marker(latlng, markerOptionsPizza);
 
@@ -584,7 +573,7 @@ fetch(pizzaUrl)
     });
 
     // Create a marker cluster group with the same icon configuration
-    var markerClusterPizza = L.markerClusterGroup({
+    markerClusterPizza = L.markerClusterGroup({
       iconCreateFunction: function (cluster) {
         return customIconPizza;
       },
@@ -629,8 +618,6 @@ fetch(pizzaUrl)
         updateAdditionalInfo('');
       });
     });
-
-    // ... (rest of your code)
   })
   .catch(error => {
     console.error('Error fetching GeoJSON data:', error);
@@ -699,37 +686,6 @@ breweryLayer.eachLayer(function (layer) {
   // Bind the popup to the layer with the options
   layer.bindPopup(popupContent, popupOptions);
 });
-
-
-
-// // Loop through each feature in the brewery layer
-// breweryLayer.eachLayer(function (layer) {
-//   // Get the following properties from each feature: name, Avg Beer Rating, Global Avg Rating
-//   var name = layer.feature.properties.name;
-//   var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
-//   var globalAvgRating = layer.feature.properties["Global Avg Rating"];
-//   var OverUnder = layer.feature.properties["OverUnder"];
-//   var count = layer.feature.properties["Count"];
-//   var image_url = layer.feature.properties.image_url;
-
-//   // Set the popup content
-//   var popupContent = "<img src='" + image_url + "' alt='Brewery Image' style='width: 65px; height: 65px;'>" +
-//     "<h2>" + name + "</h2>" +
-//     "<p>Beers Rated: " + count + "</p>" +
-//     "<p>My Avg Rating: " + avgBeerRating + "</p>" +
-//     "<p>Global Avg Rating: " + globalAvgRating + "</p>" +
-//     "<p>Conclusion: " + OverUnder + "</p>"
-
-//   // Add an event listener to update the additional info container
-//   layer.on('popupopen', function () {
-//     updateAdditionalInfo(popupContent);
-//   });
-
-//   // Add an event listener to clear the additional info container when the popup is closed
-//   layer.on('popupclose', function () {
-//     updateAdditionalInfo('');
-//   });
-// });
 
 
 // Get the brewery layer and loop through each feature
@@ -814,7 +770,6 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
-
 // Add event listeners to toggle layers when checkboxes change
 var breweryCheckbox = document.getElementById('brewery-checkbox');
 
@@ -850,5 +805,3 @@ function updateLegend() {
     pizzeriaLegend.innerHTML = '<label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox"><span class="checkmark"></span></label>';
   }
 }
-
-
