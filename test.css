@@ -437,5 +437,5 @@ button:hover {
 
 .bigger-image {
     max-height: 400px; /* Adjust the desired larger height */
-    transition: max-height 0.3s ease; /* Optional: Add a smooth transition effect */
+/*     transition: max-height 0.3s ease; /* Optional: Add a smooth transition effect */ */
 }
