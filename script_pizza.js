@@ -77,16 +77,14 @@ function buildTable(data) {
     // Combine header and body to create the HTML table
     const tableHtml = `<table>${headerRow}${bodyRows.join('')}</table>`;
 
-    // Add event listeners for image click
-    setTimeout(() => {
-        const clickableImages = document.querySelectorAll('.clickable-image img');
-        clickableImages.forEach(image => {
-            image.addEventListener('click', function () {
-                // Toggle a CSS class to make the image bigger
-                this.classList.toggle('bigger-image');
-            });
+    // Set up event listeners for image click
+    const clickableImages = document.querySelectorAll('.clickable-image img');
+    clickableImages.forEach(image => {
+        image.addEventListener('click', function () {
+            // Toggle a CSS class to make the image bigger
+            this.classList.toggle('bigger-image');
         });
-    }, 0);
+    });
 
     return tableHtml;
 }
