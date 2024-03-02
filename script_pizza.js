@@ -49,7 +49,7 @@ function buildTable(data) {
     }
 
     // Specify the columns you want to display
-    const desiredColumns = ['Pizzeria', 'Style', 'Rating', 'State', 'Notes', 'Image'];
+    const desiredColumns = ['Image', 'Pizzeria', 'Style', 'Rating', 'State', 'Notes'];
 
     // Build the table header
     const headerRow = `<tr>${desiredColumns.map(header => `<th class="sortable">${header}</th>`).join('')}</tr>`;
@@ -58,8 +58,15 @@ function buildTable(data) {
     const bodyRows = data.map(feature => {
         const cells = desiredColumns.map(header => {
             if (header === 'Image') {
-                // Display image in the "Image" column with a maximum height of 100 pixels
-                return `<td><img src="${feature.properties[header]}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
+                // Check if an image path exists
+                const imagePath = feature.properties[header];
+                if (imagePath) {
+                    // Display image in the "Image" column with a maximum height of 100 pixels
+                    return `<td><img src="${imagePath}" alt="${feature.properties['Pizzeria']} Image" style="max-height: 100px;"></td>`;
+                } else {
+                    // Display an empty cell if no image path exists
+                    return '<td></td>';
+                }
             } else {
                 return `<td>${feature.properties[header]}</td>`;
             }
