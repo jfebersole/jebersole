@@ -80,11 +80,13 @@ function buildTable(data) {
     // Set up event listeners for image click
     const clickableImages = document.querySelectorAll('.clickable-image img');
     clickableImages.forEach(image => {
+        console.log('Adding event listener to image:', image);
         image.addEventListener('click', function () {
             // Toggle a CSS class to make the image bigger
             this.classList.toggle('bigger-image');
         });
     });
+
 
     return tableHtml;
 }
