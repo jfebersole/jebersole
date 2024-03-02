@@ -822,10 +822,16 @@ fetch(pizzaUrl)
         var style = feature.properties.Style;
         var notes = feature.properties.Notes;
 
+        var imageUrl = layer.feature.properties.Image;
+
         // Set the popup content
         var popupContent = "<h2>" + pizzeria + "</h2> <p>" + "Rating: " + rating + "</p>" +
           "<p>" + "Style: " + style + "</p>" + "<p>" + "Notes: " + notes + "</p>";
-
+        
+        if (imageUrl) {
+          popupContent += "<img src='" + imageUrl + "' alt='Pizzeria Image' style='width: 100%; max-width: 200px;'>";
+        }
+        
         // Add an event listener to update the additional info container
         marker.on('click', function () {
           updateAdditionalInfo(popupContent);
