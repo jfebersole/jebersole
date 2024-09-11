@@ -58,7 +58,7 @@ fetch(pizzaUrl)
         if (props.Image) {
           popupContent += `<img src='${props.Image}' alt='Pizzeria Image' style='width: 100%;'>`;
         }
-        marker.bindPopup(popupContent);
+        marker.bindPopup(`<div class="custom-popup">${popupContent}</div>`);
         return marker;
       }
     });
@@ -95,7 +95,7 @@ fetch(breweryUrl)
   .then(data => {
     breweryLayer = L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, { icon: customIconBeer }).bindPopup(`<h3>${feature.properties['Brewery Name']}</h3>`);
+        return L.marker(latlng, { icon: customIconBeer }).bindPopup(`<div class="custom-popup"><h3>${feature.properties['Brewery Name']}</h3></div>`);
       }
     });
 
@@ -140,8 +140,25 @@ fetch(beerUrl)
           </div>`;
       });
 
-      layer.bindPopup(popupContent);
+      layer.bindPopup(`<div class="custom-popup">${popupContent}</div>`);
     });
   })
   .catch(error => console.error('Error fetching beer data:', error));
+
+// CSS for the popups
+var style = document.createElement('style');
+style.innerHTML = `
+  .custom-popup {
+    max-height: 200px;
+    overflow-y: auto;
+    width: 300px;
+  }
+  .leaflet-popup-content {
+    overflow: visible !important;
+  }
+  .leaflet-popup-content-wrapper {
+    overflow: hidden;
+  }
+`;
+document.head.appendChild(style);
 
