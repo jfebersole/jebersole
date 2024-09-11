@@ -1,6 +1,6 @@
 // Initialize the map with zoom control enabled
 var map = L.map('map', {
-  zoomControl: true,  // Enable zoom control for a better user experience
+  zoomControl: true,
   maxZoom: 16
 });
 
@@ -37,8 +37,8 @@ var legend = L.control({ position: 'topleft' });
 legend.onAdd = function () {
   var div = L.DomUtil.create('div', 'info legend-container');
   div.innerHTML = '<h2>Layers</h2>' +
-    '<div id="brewery-legend"><label><p>Breweries</p><input type="checkbox" id="brewery-checkbox" checked></label></div>' +
-    '<div id="pizzeria-legend"><label><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox" checked></label></div>';
+    '<div id="brewery-legend"><label class="container"><p>Breweries</p><input type="checkbox" id="brewery-checkbox" checked><span class="checkmark"></span></label></div>' +
+    '<div id="pizzeria-legend"><label class="container"><p>Pizzerias</p><input type="checkbox" id="pizzeria-checkbox" checked><span class="checkmark"></span></label></div>';
   return div;
 };
 legend.addTo(map);
@@ -63,7 +63,18 @@ fetch(pizzaUrl)
       }
     });
 
-    markerClusterPizza = L.markerClusterGroup();
+    // Create a marker cluster group with full zoom behavior
+    markerClusterPizza = L.markerClusterGroup({
+      maxClusterRadius: 1,  // Force icons to display as markers at full zoom
+      iconCreateFunction: function (cluster) {
+        return L.divIcon({
+          html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
+          className: 'pizza-cluster',
+          iconSize: [40, 40]
+        });
+      }
+    });
+
     markerClusterPizza.addLayer(pizzeriaLayer);
     map.addLayer(markerClusterPizza);
 
@@ -88,7 +99,17 @@ fetch(breweryUrl)
       }
     });
 
-    markerClusterBrewery = L.markerClusterGroup();
+    markerClusterBrewery = L.markerClusterGroup({
+      maxClusterRadius: 1,  // Force icons to display as markers at full zoom
+      iconCreateFunction: function (cluster) {
+        return L.divIcon({
+          html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
+          className: 'beer-cluster',
+          iconSize: [40, 40]
+        });
+      }
+    });
+
     markerClusterBrewery.addLayer(breweryLayer);
     map.addLayer(markerClusterBrewery);
 
@@ -123,3 +144,4 @@ fetch(beerUrl)
     });
   })
   .catch(error => console.error('Error fetching beer data:', error));
+
