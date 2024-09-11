@@ -764,16 +764,15 @@ breweryLayer.eachLayer(function (layer) {
 // Fetch the beerObject from the given URL
 fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.json')
   .then(response => {
-    // Check if the response is ok
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json(); // Parse the JSON
+    return response.json();
   })
   .then(data => {
-    var beerObject = data;  // Assign the fetched data to beerObject
+    var beerObject = data;  // Use the fetched data
 
-    // Now that beerObject is loaded, we can safely use it inside the map layer code
+    // Now that beerObject is loaded, we can use it inside the map layer code
     breweryLayer.eachLayer(function (layer) {
       var name = layer.feature.properties.name;
       var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
@@ -784,7 +783,7 @@ fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.jso
 
       // Filter the beer data based on the brewery name
       var beerList = beerObject.filter(function (beer) {
-        return beer["Brewery Name"] === name;
+        return beer["Brewery"] === name;
       });
 
       // Sort the beer list by my rating
@@ -804,11 +803,11 @@ fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.jso
         for (var j = 0; j < beerList.length; j++) {
           var beer = beerList[j];
           popupContent += "<div style='display: flex; align-items: center;'>" +
-            "<img src='" + beer["Image URL"] + "' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>" +
+            "<img src='" + beer["Label"] + "' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>" +
             "<div>" +
-            "<p2>" + beer["Beer Name"] + "</p2>" +
+            "<p2>" + beer["Beer"] + "</p2>" +
             "<p2><br> Me: " + beer["My Rating"] + "</p2>" +
-            "<p2><br> Untappd: " + beer["Global Rating"] + "</p2>" +
+            "<p2><br> Untappd: " + beer["Untappd Rating"] + "</p2>" +
             "</div>" +
             "</div>";
         }
@@ -828,6 +827,7 @@ fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.jso
   .catch(error => {
     console.error('Error fetching beer data:', error);
   });
+
 
 
 var customIconPizza = L.icon({
