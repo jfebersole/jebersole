@@ -641,69 +641,127 @@ fetch(pizzaUrl)
     console.error('Error fetching GeoJSON data:', error);
   });
 
-var customIconBeer = L.icon({
-  iconUrl: src="icon_beer.png",
-  iconSize: [64, 64],  // Adjust the size of your icon as needed
-  iconAnchor: [32, 32],  // Adjust the anchor point if necessary
-});
+// var customIconBeer = L.icon({
+//   iconUrl: src="icon_beer.png",
+//   iconSize: [64, 64],  // Adjust the size of your icon as needed
+//   iconAnchor: [32, 32],  // Adjust the anchor point if necessary
+// });
 
-var markerOptionsBeer = {
-  icon: customIconBeer,  // Use the custom icon instead of circleMarker
-};
+// var markerOptionsBeer = {
+//   icon: customIconBeer,  // Use the custom icon instead of circleMarker
+// };
 
-// Create a geojson brewery layer using markerOptions
-var breweryLayer = L.geoJSON(breweryObject, {
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, markerOptionsBeer);
-  }
-});
+// // Create a geojson brewery layer using markerOptions
+// var breweryLayer = L.geoJSON(breweryObject, {
+//   pointToLayer: function (feature, latlng) {
+//     return L.marker(latlng, markerOptionsBeer);
+//   }
+// });
 
-// Create a marker cluster group with the same icon configuration
-var markerClusterBrewery = L.markerClusterGroup({
-  iconCreateFunction: function (cluster) {
-    return customIconBeer;
-  },
-  polygonOptions: {
-    fillColor: 'transparent',
-    color: 'transparent',
-    weight: 0,
-    opacity: 0,
-    fillOpacity: 0,
-  },
-  // set the max zoom level to prevent clusters from becoming markers
-  maxClusterRadius: 15
-});
+// // Create a marker cluster group with the same icon configuration
+// var markerClusterBrewery = L.markerClusterGroup({
+//   iconCreateFunction: function (cluster) {
+//     return customIconBeer;
+//   },
+//   polygonOptions: {
+//     fillColor: 'transparent',
+//     color: 'transparent',
+//     weight: 0,
+//     opacity: 0,
+//     fillOpacity: 0,
+//   },
+//   // set the max zoom level to prevent clusters from becoming markers
+//   maxClusterRadius: 15
+// });
 
-// Add markers to the cluster group
-breweryLayer.eachLayer(function (marker) {
-  markerClusterBrewery.addLayer(marker);
-});
+// // Add markers to the cluster group
+// breweryLayer.eachLayer(function (marker) {
+//   markerClusterBrewery.addLayer(marker);
+// });
 
-// Add the marker cluster group to the map
-map.addLayer(markerClusterBrewery);
+// // Add the marker cluster group to the map
+// map.addLayer(markerClusterBrewery);
 
-// Create a function to update the additional info container
-function updateAdditionalInfo(content) {
-  var additionalInfoContainer = document.getElementById('additional-info');
-  additionalInfoContainer.innerHTML = content;
-}
+// // Create a function to update the additional info container
+// function updateAdditionalInfo(content) {
+//   var additionalInfoContainer = document.getElementById('additional-info');
+//   additionalInfoContainer.innerHTML = content;
+// }
 
-// Loop through each feature in the brewery layer
-breweryLayer.eachLayer(function (layer) {
-  // Get the following properties from each feature: name, Avg Beer Rating, Global Avg Rating
-  var name = layer.feature.properties.name;
-  // var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
-  // var globalAvgRating = layer.feature.properties["Global Avg Rating"];
+// // Loop through each feature in the brewery layer
+// breweryLayer.eachLayer(function (layer) {
+//   // Get the following properties from each feature: name, Avg Beer Rating, Global Avg Rating
+//   var name = layer.feature.properties.name;
+//   // var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
+//   // var globalAvgRating = layer.feature.properties["Global Avg Rating"];
   
-  // Set the popup content
-  var popupContent = "<h3>" + name + "</h3>";
+//   // Set the popup content
+//   var popupContent = "<h3>" + name + "</h3>";
 
-  // Use a className option to assign a custom class to the popup
-  var popupOptions = { className: "mypopup" };
+//   // Use a className option to assign a custom class to the popup
+//   var popupOptions = { className: "mypopup" };
 
-  // Bind the popup to the layer with the options
-  layer.bindPopup(popupContent, popupOptions);
-});
+//   // Bind the popup to the layer with the options
+//   layer.bindPopup(popupContent, popupOptions);
+// });
+
+// Load the brewery data dynamically from the GeoJSON file
+fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/brewery_data.geojson')
+  .then(response => response.json())
+  .then(data => {
+    var breweryObject = data; // The fetched GeoJSON data
+
+    var customIconBeer = L.icon({
+      iconUrl: 'icon_beer.png', // Adjust the path to your icon
+      iconSize: [64, 64],  // Adjust the size of your icon as needed
+      iconAnchor: [32, 32],  // Adjust the anchor point if necessary
+    });
+
+    var markerOptionsBeer = {
+      icon: customIconBeer,  // Use the custom icon instead of circleMarker
+    };
+
+    // Create a geojson brewery layer using markerOptions
+    var breweryLayer = L.geoJSON(breweryObject, {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, markerOptionsBeer);
+      }
+    });
+
+    // Create a marker cluster group with the same icon configuration
+    var markerClusterBrewery = L.markerClusterGroup({
+      iconCreateFunction: function (cluster) {
+        return customIconBeer;
+      },
+      polygonOptions: {
+        fillColor: 'transparent',
+        color: 'transparent',
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0,
+      },
+      maxClusterRadius: 15
+    });
+
+    // Add markers to the cluster group
+    breweryLayer.eachLayer(function (marker) {
+      markerClusterBrewery.addLayer(marker);
+    });
+
+    // Add the marker cluster group to the map
+    map.addLayer(markerClusterBrewery);
+
+    // Loop through each feature in the brewery layer
+    breweryLayer.eachLayer(function (layer) {
+      var name = layer.feature.properties.name;
+      var popupContent = "<h3>" + name + "</h3>";
+
+      var popupOptions = { className: "mypopup" };
+      layer.bindPopup(popupContent, popupOptions);
+    });
+  })
+  .catch(error => console.error('Error loading the GeoJSON file:', error));
+
 
 
 // // Get the brewery layer and loop through each feature
