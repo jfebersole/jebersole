@@ -832,11 +832,11 @@ fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.jso
 
     // Now that beerObject is loaded, we can use it inside the map layer code
     breweryLayer.eachLayer(function (layer) {
-      var name = layer.feature.properties.name;
-      var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
-      var globalAvgRating = layer.feature.properties["Global Avg Rating"];
-      var OverUnder = layer.feature.properties["OverUnder"];
-      var count = layer.feature.properties["Count"];
+      var name = layer.feature.properties["Brewery Name"];
+      var avgBeerRating = layer.feature.properties["My Rating"];
+      var globalAvgRating = layer.feature.properties["Global Rating"];
+      // var OverUnder = layer.feature.properties["OverUnder"];
+      var count = layer.feature.properties["Beers Rated"];
       var image_url = layer.feature.properties.image_url;
 
       // Filter the beer data based on the brewery name
