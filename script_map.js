@@ -16,26 +16,26 @@ map.setView([39.8283, -98.5795], 4);
 // Set the view to the center and zoom level of Washington, DC
 // map.setView([38.9072, -77.0369], 12);
 
-// Fetch the beerObject from the given URL
-fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.json')
-  .then(response => {
-    // Check if the response is ok
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Convert the response to JSON
-    return response.json();
-  })
-  .then(data => {
-    // Use the fetched data (beerObject) here
-    console.log(data);
-    // If you need to assign it to a variable
-    var beerObject = data;
-  })
-  .catch(error => {
-    // Handle any errors that occur during the fetch
-    console.error('There was a problem with the fetch operation:', error);
-  });
+// // Fetch the beerObject from the given URL
+// fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.json')
+//   .then(response => {
+//     // Check if the response is ok
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     // Convert the response to JSON
+//     return response.json();
+//   })
+//   .then(data => {
+//     // Use the fetched data (beerObject) here
+//     console.log(data);
+//     // If you need to assign it to a variable
+//     var beerObject = data;
+//   })
+//   .catch(error => {
+//     // Handle any errors that occur during the fetch
+//     console.error('There was a problem with the fetch operation:', error);
+//   });
 
 // // create JSON object with beer data
 // var beerObject = [
@@ -706,61 +706,128 @@ breweryLayer.eachLayer(function (layer) {
 });
 
 
-// Get the brewery layer and loop through each feature
-breweryLayer.eachLayer(function (layer) {
-  var name = layer.feature.properties.name;
-  var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
-  var globalAvgRating = layer.feature.properties["Global Avg Rating"];
-  var OverUnder = layer.feature.properties["OverUnder"];
-  var count = layer.feature.properties["Count"];
-  var image_url = layer.feature.properties.image_url;
+// // Get the brewery layer and loop through each feature
+// breweryLayer.eachLayer(function (layer) {
+//   var name = layer.feature.properties.name;
+//   var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
+//   var globalAvgRating = layer.feature.properties["Global Avg Rating"];
+//   var OverUnder = layer.feature.properties["OverUnder"];
+//   var count = layer.feature.properties["Count"];
+//   var image_url = layer.feature.properties.image_url;
 
-  // Filter the beer data based on the brewery name
-  var beerList = beerObject.filter(function (beer) {
-    return beer["Brewery Name"] === name;
-  });
+//   // Filter the beer data based on the brewery name
+//   var beerList = beerObject.filter(function (beer) {
+//     return beer["Brewery Name"] === name;
+//   });
 
-  // sort the beer list by my rating
-  beerList.sort(function (a, b) {
-    return b["My Rating"] - a["My Rating"];
-  });
+//   // sort the beer list by my rating
+//   beerList.sort(function (a, b) {
+//     return b["My Rating"] - a["My Rating"];
+//   });
 
 
-  // Set the popup content
-  var popupContent = "<img src='" + image_url + "' alt='Brewery Image' style='width: 65px; height: 65px;'>" +
-    "<h2>" + name + "</h2>" +
-    "<h3> Average Beer Rating: </h3>" +
-    "<p>Me: " + avgBeerRating.toFixed(2) + "</p>" +
-    "<p>Untappd: " + globalAvgRating.toFixed(2) + "</p>"
-    // "<p>Conclusion: " + OverUnder + "</p>";
+//   // Set the popup content
+//   var popupContent = "<img src='" + image_url + "' alt='Brewery Image' style='width: 65px; height: 65px;'>" +
+//     "<h2>" + name + "</h2>" +
+//     "<h3> Average Beer Rating: </h3>" +
+//     "<p>Me: " + avgBeerRating.toFixed(2) + "</p>" +
+//     "<p>Untappd: " + globalAvgRating.toFixed(2) + "</p>"
+//     // "<p>Conclusion: " + OverUnder + "</p>";
 
-  if (beerList.length > 0) {
-    popupContent += "<h3>Rated Beers (" + count + "):</h3>";
-    for (var j = 0; j < beerList.length; j++) {
-      var beer = beerList[j];
-      popupContent += "<div style='display: flex; align-items: center;'>" +
-        "<img src='" + beer["Image URL"] + "' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>" +
-        "<div>" +
-        "<p2>" + beer["Beer Name"] + "</p2>" +
-        "<p2><br> Me: " + beer["My Rating"] + "</p2>" +
-        "<p2><br> Untappd: " + beer["Global Rating"] + "</p2>" +
-        "</div>" +
-        "</div>";
+//   if (beerList.length > 0) {
+//     popupContent += "<h3>Rated Beers (" + count + "):</h3>";
+//     for (var j = 0; j < beerList.length; j++) {
+//       var beer = beerList[j];
+//       popupContent += "<div style='display: flex; align-items: center;'>" +
+//         "<img src='" + beer["Image URL"] + "' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>" +
+//         "<div>" +
+//         "<p2>" + beer["Beer Name"] + "</p2>" +
+//         "<p2><br> Me: " + beer["My Rating"] + "</p2>" +
+//         "<p2><br> Untappd: " + beer["Global Rating"] + "</p2>" +
+//         "</div>" +
+//         "</div>";
+//     }
+//     //popupContent +="<div style='height: 50px;'></div>";
+//   }
+
+//   // Add an event listener to update the additional info container
+//   layer.on('popupopen', function () {
+//     updateAdditionalInfo(popupContent);
+//   });
+
+//   // Add an event listener to clear the additional info container when the popup is closed
+//   layer.on('popupclose', function () {
+//     updateAdditionalInfo('');
+//   });
+// });
+
+// Fetch the beerObject from the given URL
+fetch('https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data.json')
+  .then(response => {
+    // Check if the response is ok
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-    //popupContent +="<div style='height: 50px;'></div>";
-  }
+    return response.json(); // Parse the JSON
+  })
+  .then(data => {
+    var beerObject = data;  // Assign the fetched data to beerObject
 
-  // Add an event listener to update the additional info container
-  layer.on('popupopen', function () {
-    updateAdditionalInfo(popupContent);
+    // Now that beerObject is loaded, we can safely use it inside the map layer code
+    breweryLayer.eachLayer(function (layer) {
+      var name = layer.feature.properties.name;
+      var avgBeerRating = layer.feature.properties["Avg Beer Rating"];
+      var globalAvgRating = layer.feature.properties["Global Avg Rating"];
+      var OverUnder = layer.feature.properties["OverUnder"];
+      var count = layer.feature.properties["Count"];
+      var image_url = layer.feature.properties.image_url;
+
+      // Filter the beer data based on the brewery name
+      var beerList = beerObject.filter(function (beer) {
+        return beer["Brewery Name"] === name;
+      });
+
+      // Sort the beer list by my rating
+      beerList.sort(function (a, b) {
+        return b["My Rating"] - a["My Rating"];
+      });
+
+      // Set the popup content
+      var popupContent = "<img src='" + image_url + "' alt='Brewery Image' style='width: 65px; height: 65px;'>" +
+        "<h2>" + name + "</h2>" +
+        "<h3> Average Beer Rating: </h3>" +
+        "<p>Me: " + avgBeerRating.toFixed(2) + "</p>" +
+        "<p>Untappd: " + globalAvgRating.toFixed(2) + "</p>";
+
+      if (beerList.length > 0) {
+        popupContent += "<h3>Rated Beers (" + count + "):</h3>";
+        for (var j = 0; j < beerList.length; j++) {
+          var beer = beerList[j];
+          popupContent += "<div style='display: flex; align-items: center;'>" +
+            "<img src='" + beer["Image URL"] + "' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>" +
+            "<div>" +
+            "<p2>" + beer["Beer Name"] + "</p2>" +
+            "<p2><br> Me: " + beer["My Rating"] + "</p2>" +
+            "<p2><br> Untappd: " + beer["Global Rating"] + "</p2>" +
+            "</div>" +
+            "</div>";
+        }
+      }
+
+      // Add an event listener to update the additional info container
+      layer.on('popupopen', function () {
+        updateAdditionalInfo(popupContent);
+      });
+
+      // Add an event listener to clear the additional info container when the popup is closed
+      layer.on('popupclose', function () {
+        updateAdditionalInfo('');
+      });
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching beer data:', error);
   });
-
-  // Add an event listener to clear the additional info container when the popup is closed
-  layer.on('popupclose', function () {
-    updateAdditionalInfo('');
-  });
-});
-
 
 
 var customIconPizza = L.icon({
