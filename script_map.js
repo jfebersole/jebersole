@@ -149,7 +149,7 @@ fetch(breweryUrl)
 var style = document.createElement('style');
 style.innerHTML = `
   .custom-popup {
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
     width: 300px;
   }
