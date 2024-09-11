@@ -121,29 +121,29 @@ fetch(breweryUrl)
         map.removeLayer(markerClusterBrewery);
       }
     });
+
+    // Fetch and process beer data AFTER breweryLayer is ready
+    fetch(beerUrl)
+      .then(response => response.json())
+      .then(beerData => {
+        breweryLayer.eachLayer(function (layer) {
+          var breweryName = layer.feature.properties["Brewery Name"];
+          var beers = beerData.filter(beer => beer["Brewery"] === breweryName);
+          var popupContent = `<h2>${breweryName}</h2><h3>Rated Beers:</h3>`;
+
+          beers.forEach(beer => {
+            popupContent += `<div style='display: flex; align-items: center;'>
+              <img src='${beer["Label"]}' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>
+              <div><p>${beer["Beer"]}</p><p>My Rating: ${beer["My Rating"]}</p><p>Untappd: ${beer["Untappd Rating"]}</p></div>
+              </div>`;
+          });
+
+          layer.bindPopup(`<div class="custom-popup">${popupContent}</div>`);
+        });
+      })
+      .catch(error => console.error('Error fetching beer data:', error));
   })
   .catch(error => console.error('Error fetching brewery data:', error));
-
-// Fetch and process beer data
-fetch(beerUrl)
-  .then(response => response.json())
-  .then(beerData => {
-    breweryLayer.eachLayer(function (layer) {
-      var breweryName = layer.feature.properties["Brewery Name"];
-      var beers = beerData.filter(beer => beer["Brewery"] === breweryName);
-      var popupContent = `<h2>${breweryName}</h2><h3>Rated Beers:</h3>`;
-
-      beers.forEach(beer => {
-        popupContent += `<div style='display: flex; align-items: center;'>
-          <img src='${beer["Label"]}' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>
-          <div><p>${beer["Beer"]}</p><p>My Rating: ${beer["My Rating"]}</p><p>Untappd: ${beer["Untappd Rating"]}</p></div>
-          </div>`;
-      });
-
-      layer.bindPopup(`<div class="custom-popup">${popupContent}</div>`);
-    });
-  })
-  .catch(error => console.error('Error fetching beer data:', error));
 
 // CSS for the popups
 var style = document.createElement('style');
@@ -161,4 +161,3 @@ style.innerHTML = `
   }
 `;
 document.head.appendChild(style);
-
