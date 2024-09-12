@@ -91,7 +91,7 @@ fetch(pizzaUrl)
         opacity: 0,
         fillOpacity: 0,
       },
-      maxClusterRadius: 40 // Adjust this if you want the clustering radius to change
+      maxClusterRadius: 20 // Adjust this if you want the clustering radius to change
     });
 
     markerClusterPizza.addLayer(pizzeriaLayer);
@@ -145,7 +145,7 @@ fetch(breweryUrl)
         opacity: 0,
         fillOpacity: 0,
       },
-      maxClusterRadius: 40 // Adjust this if you want the clustering radius to change
+      maxClusterRadius: 20 // Adjust this if you want the clustering radius to change
     });
 
     markerClusterBrewery.addLayer(breweryLayer);
