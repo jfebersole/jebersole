@@ -138,11 +138,12 @@ fetch(breweryUrl)
           //     </div>`;
           // });
           beers.forEach(beer => {
-            popupContent += `<div style="display: flex; align-items: center;">
-              <img src="${beer['Label']}" alt="Beer Image" style="width: 50px; height: 50px; margin-right: 5px;">
+            popupContent += `<div style="display: flex; align-items: center; margin-bottom: 5px;">
+              <img src="${beer['Label']}" alt="Beer Image" style="width: 65px; height: 65px; margin-right: 10px;">
               <div style="flex-grow: 1;">
                 <p style="margin: 0; font-weight: bold;">${beer['Beer']}</p>
-                <p style="margin: 0;">My Rating: ${beer['My Rating']} | Untappd: ${beer['Untappd Rating']}</p>
+                <p style="margin: 0;">My Rating: ${beer['My Rating']}</p>
+                <p style="margin: 0;">Untappd: ${beer['Untappd Rating']}</p>
               </div>
             </div>`;
           });
