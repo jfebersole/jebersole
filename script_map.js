@@ -1,6 +1,6 @@
 // Initialize the map with zoom control enabled
 var map = L.map('map', {
-  zoomControl: true,
+  zoomControl: false,
   maxZoom: 16
 });
 
