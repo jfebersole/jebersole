@@ -64,15 +64,34 @@ fetch(pizzaUrl)
     });
 
     // Create a marker cluster group with full zoom behavior
+    // markerClusterPizza = L.markerClusterGroup({
+    //   maxClusterRadius: 1,  // Force icons to display as markers at full zoom
+    //   iconCreateFunction: function (cluster) {
+    //     return L.divIcon({
+    //       html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
+    //       className: 'pizza-cluster',
+    //       iconSize: [40, 40]
+    //     });
+    //   }
+    // });
+
     markerClusterPizza = L.markerClusterGroup({
-      maxClusterRadius: 1,  // Force icons to display as markers at full zoom
       iconCreateFunction: function (cluster) {
+        // Always return a custom pizza icon, regardless of the number of markers in the cluster
         return L.divIcon({
-          html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
-          className: 'pizza-cluster',
-          iconSize: [40, 40]
+          html: '<img src="icon_pizza.png" style="width: 64px; height: 64px;">',
+          className: 'custom-pizza-icon',
+          iconSize: [64, 64]
         });
-      }
+      },
+      polygonOptions: {
+        fillColor: 'transparent',
+        color: 'transparent',
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0,
+      },
+      maxClusterRadius: 40 // Adjust this if you want the clustering radius to change
     });
 
     markerClusterPizza.addLayer(pizzeriaLayer);
@@ -99,15 +118,34 @@ fetch(breweryUrl)
       }
     });
 
+    // markerClusterBrewery = L.markerClusterGroup({
+    //   maxClusterRadius: 1,  // Force icons to display as markers at full zoom
+    //   iconCreateFunction: function (cluster) {
+    //     return L.divIcon({
+    //       html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
+    //       className: 'beer-cluster',
+    //       iconSize: [40, 40]
+    //     });
+    //   }
+    // });
+
     markerClusterBrewery = L.markerClusterGroup({
-      maxClusterRadius: 1,  // Force icons to display as markers at full zoom
       iconCreateFunction: function (cluster) {
+        // Always return a custom beer icon, regardless of the number of markers in the cluster
         return L.divIcon({
-          html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
-          className: 'beer-cluster',
-          iconSize: [40, 40]
+          html: '<img src="icon_beer.png" style="width: 64px; height: 64px;">',
+          className: 'custom-beer-icon',
+          iconSize: [64, 64]
         });
-      }
+      },
+      polygonOptions: {
+        fillColor: 'transparent',
+        color: 'transparent',
+        weight: 0,
+        opacity: 0,
+        fillOpacity: 0,
+      },
+      maxClusterRadius: 40 // Adjust this if you want the clustering radius to change
     });
 
     markerClusterBrewery.addLayer(breweryLayer);
@@ -159,7 +197,7 @@ fetch(breweryUrl)
 var style = document.createElement('style');
 style.innerHTML = `
   .custom-popup {
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
     width: 300px;
   }
