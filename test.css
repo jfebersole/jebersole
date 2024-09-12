@@ -125,7 +125,7 @@ html, body, #map {
 
 /* CSS for the map container */
 #map-container {
-  /*   flex: 0.8; */
+    flex: 1;
   height: 100%; /* Adjust the height as needed */
   z-index: 0; /* Set the z-index for the map container */
 }
