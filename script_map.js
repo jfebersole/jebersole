@@ -131,11 +131,20 @@ fetch(breweryUrl)
           var beers = beerData.filter(beer => beer["Brewery"] === breweryName);
           var popupContent = `<h2>${breweryName}</h2><h3>Rated Beers:</h3>`;
 
+          // beers.forEach(beer => {
+          //   popupContent += `<div style='display: flex; align-items: center;'>
+          //     <img src='${beer["Label"]}' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>
+          //     <div><p>${beer["Beer"]}</p><p>My Rating: ${beer["My Rating"]}</p><p>Untappd: ${beer["Untappd Rating"]}</p></div>
+          //     </div>`;
+          // });
           beers.forEach(beer => {
-            popupContent += `<div style='display: flex; align-items: center;'>
-              <img src='${beer["Label"]}' alt='Beer Image' style='width: 65px; height: 65px; margin-right: 10px;'>
-              <div><p>${beer["Beer"]}</p><p>My Rating: ${beer["My Rating"]}</p><p>Untappd: ${beer["Untappd Rating"]}</p></div>
-              </div>`;
+            popupContent += `<div style="display: flex; align-items: center;">
+              <img src="${beer['Label']}" alt="Beer Image" style="width: 50px; height: 50px; margin-right: 5px;">
+              <div style="flex-grow: 1;">
+                <p style="margin: 0; font-weight: bold;">${beer['Beer']}</p>
+                <p style="margin: 0;">My Rating: ${beer['My Rating']} | Untappd: ${beer['Untappd Rating']}</p>
+              </div>
+            </div>`;
           });
 
           layer.bindPopup(`<div class="custom-popup">${popupContent}</div>`);
