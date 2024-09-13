@@ -24,46 +24,5 @@
   <a class="button" href="beer_rankings.html">Beer Rankings</a>
   <a class="button" href="pizzeria_rankings.html">Pizzeria Rankings</a>
 </div>
-<!-- <!-- Container to display the table -->
-<div id="table-container"></div>
-<script>
-// URL to your JSON file on GitHub
-const jsonUrl = 'https://raw.githubusercontent.com/jfebersole/jebersole/main/beer_data3.json';
-
-// Function to fetch and display JSON data
-async function fetchDataAndDisplay() {
-    try {
-        // Fetch JSON data
-        const response = await fetch(jsonUrl);
-        const jsonData = await response.json();
-
-        // Process the JSON data and build the HTML table
-        const tableHtml = buildTable(jsonData);
-
-        // Display the table in the specified container
-        document.getElementById('table-container').innerHTML = tableHtml;
-    } catch (error) {
-        console.error('Error fetching or processing JSON data:', error);
-    }
-}
-
-// Function to build an HTML table from JSON data
-function buildTable(data) {
-    // Assuming data is an array of objects, and the keys represent column headers
-    const headers = Object.keys(data[0]);
-
-    // Build the table header
-    const headerRow = `<tr>${headers.map(header => `<th>${header}</th>`).join('')}</tr>`;
-
-    // Build the table body
-    const bodyRows = data.map(row => `<tr>${headers.map(header => `<td>${row[header]}</td>`).join('')}</tr>`);
-
-    // Combine header and body to create the HTML table
-    return `<table>${headerRow}${bodyRows.join('')}</table>`;
-}
-
-// Call the function to fetch and display data when the page loads
-fetchDataAndDisplay();
-</script> -->
 </body>
 </html>
