@@ -27,8 +27,13 @@ globalThis.buildHtmlTable = function(data, containerId, imageColumn) {
 
     const bodyRows = data.map(row => {
         const cells = headers.map(header => {
-            const cellContent = (header === imageColumn) ? `<img src="${row[header]}" alt="Image" style="max-height: 100px;">` : row[header];
-            return `<td>${cellContent}</td>`;
+            if (header === imageColumn && row[header]) {
+                return `<td><img src="${row[header]}" alt="Image" style="max-height: 100px;" onerror="this.style.display='none';"></td>`;
+            } else if (header === imageColumn) {
+                return `<td></td>`; // Empty cell for missing images
+            } else {
+                return `<td>${row[header]}</td>`;
+            }
         });
         return `<tr>${cells.join('')}</tr>`;
     });
@@ -36,14 +41,31 @@ globalThis.buildHtmlTable = function(data, containerId, imageColumn) {
     document.getElementById(containerId).innerHTML = `<table>${headerRow}${bodyRows.join('')}</table>`;
 };
 
+
 // Load and display brewery and beer data
 (async function() {
-    const breweryData = await fetchJsonData(breweryJsonUrl);
-    buildHtmlTable(breweryData, 'brewery-container', 'Logo');
+    if (document.getElementById('breweryTable')) {
+        const breweryData = await fetchJsonData(breweryJsonUrl);
+        buildHtmlTable(breweryData, 'breweryTable', 'Logo');
+    }
 
-    const beerData = await fetchJsonData(beerJsonUrl);
-    buildHtmlTable(beerData, 'beer-container', 'Label');
+    if (document.getElementById('beerTable')) {
+        const beerData = await fetchJsonData(beerJsonUrl);
+        buildHtmlTable(beerData, 'beerTable', 'Label');
+    }
+
+    if (document.getElementById('pizzeriaTable')) {
+        const pizzaDataGeoJson = await fetchJsonData(pizzaGeoJsonUrl);
+        const pizzaData = pizzaDataGeoJson.features.map(feature => {
+            return {
+                ...feature.properties,
+                Image: `../images/${feature.properties.Image}`
+            };
+        });
+        buildHtmlTable(pizzaData, 'pizzeriaTable', 'Image');
+    }
 })();
+
 
 // Initialize Leaflet map
 var map = L.map('map', { zoomControl: false, maxZoom: 16 });
@@ -51,8 +73,8 @@ L.tileLayer('http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_
 map.setView([39.8283, -98.5795], 4);
 
 // Custom icons
-var customIconPizza = L.icon({ iconUrl: 'images/icon_pizza.png', iconSize: [64, 64], iconAnchor: [32, 32] });
-var customIconBeer = L.icon({ iconUrl: 'images/icon_beer.png', iconSize: [64, 64], iconAnchor: [32, 32] });
+var customIconPizza = L.icon({ iconUrl: '../images/icon_pizza.png', iconSize: [64, 64], iconAnchor: [32, 32] });
+var customIconBeer = L.icon({ iconUrl: '../images/icon_beer.png', iconSize: [64, 64], iconAnchor: [32, 32] });
 
 // Add legend control
 var legend = L.control({ position: 'topleft' });
@@ -76,7 +98,7 @@ legend.addTo(map);
     var pizzeriaLayer = L.geoJSON(pizzaData, {
         pointToLayer: (feature, latlng) => L.marker(latlng, { icon: customIconPizza })
             .bindPopup(`<h2>${feature.properties.Pizzeria}</h2><p>Rating: ${feature.properties.Rating}</p>`)
-    });
+    }).addTo(map);
 
     var breweryLayer = L.geoJSON(breweryData, {
         pointToLayer: (feature, latlng) => {
@@ -87,16 +109,13 @@ legend.addTo(map);
             marker.bindPopup(`<h2>${breweryName}</h2>${beerList}`);
             return marker;
         }
-    });
-
-    var markerClusterPizza = L.markerClusterGroup().addLayer(pizzeriaLayer).addTo(map);
-    var markerClusterBrewery = L.markerClusterGroup().addLayer(breweryLayer).addTo(map);
+    }).addTo(map);
 
     document.getElementById('pizzeria-checkbox').addEventListener('change', function() {
-        this.checked ? map.addLayer(markerClusterPizza) : map.removeLayer(markerClusterPizza);
+        this.checked ? map.addLayer(pizzeriaLayer) : map.removeLayer(pizzeriaLayer);
     });
 
     document.getElementById('brewery-checkbox').addEventListener('change', function() {
-        this.checked ? map.addLayer(markerClusterBrewery) : map.removeLayer(markerClusterBrewery);
+        this.checked ? map.addLayer(breweryLayer) : map.removeLayer(breweryLayer);
     });
 })();
