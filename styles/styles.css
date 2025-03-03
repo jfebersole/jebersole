@@ -70,38 +70,36 @@ html, body, #map {
   margin-right: 10px;
 }
 
-#container {
-  margin-top: 113px;
+/* #container {
+  margin-top: 95px;
   display: flex;
   justify-content: space-between;
   height: 80vh;
-  padding-right: 10px;
-}
+} */
 
-#map-container, #additional-info-container {
+/* #map-container, #additional-info-container {
   height: 100%;
   z-index: 0;
-}
+} */
 
-#map-container { flex: 1; }
 
-#additional-info-container {
+/* #additional-info-container {
   flex: 0.2;
   background-color: white;
   overflow-y: auto;
   min-width: 300px;
   padding: 0 10px;
-}
+} */
 
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-#beer-container, #pizza-container, #brewery-container {
-  height: 80vh;
+#beer-container, #pizza-container, #brewery-container, #map-container {
+  height: calc(100vh - 100px);
   overflow: auto;
-  margin-top: 115px;
+  margin-top: 95px;
   margin-right: 10px;
   padding: 0 10px 0 4px;
 }
@@ -186,7 +184,7 @@ input[type="checkbox"]:checked {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-
+/* 
 .custom-cluster-icon {
   background-color: var(--icon-grey);
   border: 5px solid whitesmoke;
@@ -195,7 +193,29 @@ input[type="checkbox"]:checked {
   border-radius: 50%;
   text-align: center;
   line-height: 40px;
+} */
+
+.custom-cluster-icon {
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
 }
+
+.custom-cluster-icon span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 5px;
+  min-width: 24px;
+  text-align: center;
+}
+
 
 th.sortable.asc::after { content: "\2191"; }
 th.sortable.desc::after { content: "\2193"; }

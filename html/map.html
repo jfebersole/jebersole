@@ -2,16 +2,32 @@
 <html>
 <head>
   <title>Pizza + Beer</title>
+  <meta charset="UTF-8">
+
   <!-- Load the Leaflet CSS file -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-  <!-- <link rel="icon" type="image/png" href="https://th.bing.com/th/id/OIG.JFDF8RNHD9VSeDEfStfp?pid=ImgGn"> -->
-  <link rel="icon" type="image/png" href="../images/icon3.svg">
+
+  <!-- Load the Leaflet Clustering Plugin CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.css">
+
+  <!-- Custom styles -->
   <link rel="stylesheet" href="../styles/styles.css">
-  <meta charset="UTF-8">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../images/icon3.svg">
+
+  <style>
+    /* Ensure the map container has a height */
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
 </head>
 <body style="overflow: hidden;">
   <div class="header">
-    <a href="map.html"> <!-- Replace "index.html" with your actual index page URL -->
+    <a href="map.html">
         <img src="../images/icon3.svg" width="90px" />
         <h1>Pizza + Beer Project</h1>
     </a>
@@ -21,25 +37,22 @@
     <a href="pizzeria_rankings.html"><h4>Pizzeria Rankings</h4></a>
     <a href="charts.html"><h4>Charts</h4></a>
   </div>
-  <div id="container">
-    <div id="map-container">
-      <div id="map"></div>
-    </div>
-<!--     <div id="additional-info-container">
-      <div id="additional-info"></div>
-    </div> -->
+
+  <div id="map-container">
+    <div id="map"></div>
   </div>
-  
+
   <!-- Load the Leaflet JavaScript file -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Load the Leaflet Clustering Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/leaflet.markercluster.js"></script>
+
   <!-- Add jQuery and jQuery UI for the slider -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- Load the Leaflet clustering plugin -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
   <!-- Load your custom JavaScript file -->
   <script src="../scripts/main.js"></script>
 </body>
