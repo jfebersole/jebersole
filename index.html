@@ -3,7 +3,7 @@
 <head>
   <title>Pizza + Beer</title>
   <link rel="stylesheet" href="styles/styles.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/> -->
   <link rel="icon" type="image/png" href="images/icon3.svg">
   <meta charset="UTF-8">
 </head>
@@ -17,12 +17,23 @@
     <a href="html/brewery_rankings.html"><h4>Brewery Rankings</h4></a>
     <a href="html/beer_rankings.html"><h4>Beer Rankings</h4></a>
     <a href="html/pizzeria_rankings.html"><h4>Pizzeria Rankings</h4></a>
-</div>
-<div class="button-container">
-  <a class="button" href="html/map.html">Map</a>
-  <a class="button" href="html/brewery_rankings.html">Brewery Rankings</a>
-  <a class="button" href="html/beer_rankings.html">Beer Rankings</a>
-  <a class="button" href="html/pizzeria_rankings.html">Pizzeria Rankings</a>
-</div>
+  </div>
+  <!-- <div class="button-container">
+    <a class="button" href="html/map.html">Map</a>
+    <a class="button" href="html/brewery_rankings.html">Brewery Rankings</a>
+    <a class="button" href="html/beer_rankings.html">Beer Rankings</a>
+    <a class="button" href="html/pizzeria_rankings.html">Pizzeria Rankings</a>
+  </div> -->
+  <div class="counter-container">
+    <div class="counter">
+      <p>Pizzerias Rated:</p>
+      <div id="pizzeria-count"></div>
+    </div>
+    <div class="counter">
+      <p>Beers Rated:</p>
+      <div id="beer-count"></div>
+    </div>
+  </div>  
+  <script src="scripts/main.js"></script>
 </body>
 </html>
